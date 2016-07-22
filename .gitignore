@@ -39,5 +39,5 @@ jspm_packages
 # WordPress
 wp-config.php
 wp-content/uploads/
-wp-content/themes/aiaf/node_modules/
+wp-content/themes/aiaf/node_modules/ 
 wp-content/themes/aiaf/bower_components/
