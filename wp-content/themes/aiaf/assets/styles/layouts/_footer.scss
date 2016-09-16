@@ -1,0 +1,10 @@
+.content-info{
+	@extend .section;
+	background-color: $gray;
+	.scroll{
+		text-align: center;
+		.scroll-to{
+			color: $gray-lighter-2;
+		}
+	}
+}

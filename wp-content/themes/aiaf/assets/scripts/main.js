@@ -19,6 +19,15 @@
     'common': {
       init: function() {
         // JavaScript to be fired on all pages
+        $('a[href^="#"]').on('click', function(event) {
+            var target = $(this.getAttribute('href'));
+            if( target.length ) {
+                event.preventDefault();
+                $('html, body').stop().animate({
+                    scrollTop: target.offset().top
+                }, 1000);
+            }
+        });
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
@@ -28,9 +37,33 @@
     'home': {
       init: function() {
         // JavaScript to be fired on the home page
+        $.stellar({
+          horizontalScrolling: false,
+          verticalOffset: 350
+        });
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+        });
       },
       finalize: function() {
         // JavaScript to be fired on the home page, after the init JS
+        $('#s3').stellar({
+          horizontalScrolling: false,
+          verticalOffset: 0
+        });
       }
     },
     // About us page, note the change from about-us to about_us.

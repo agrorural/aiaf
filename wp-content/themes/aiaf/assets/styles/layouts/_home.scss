@@ -1,0 +1,183 @@
+.home{
+	.scroll-to{
+		color: $gray-light;
+		span{
+			@include font-size(30);
+		}
+	}
+	.home-spot{
+		@include stellar-bg(650px);
+		background-color: $green-accent;
+		background-image: url('../images/home-spot__bg.jpg');
+		background-size: cover;
+		@include center-block();
+		text-align: center;
+		a{
+			position: absolute;
+			left: 0;
+			right: 0;
+			color: #FFF;
+			&.custom-logo-link{
+				top: 33.3%;
+			}
+			&.scroll-to{
+				bottom: 10%;
+			}
+		}
+	}
+	.section{
+		padding-top: 75px;
+		padding-bottom: 35px;
+		.scroll{
+			text-align: center;
+			margin-top: 55px;
+		}
+		.section-container{
+			@extend .container;
+			.page-header{
+				margin-top: 0;
+				margin-bottom: 55px;
+				@include center-block();
+				text-align: center;
+				border-bottom: 1px solid transparent;
+				h2{
+					display: inline-block;
+					@include font-size(24);
+					text-transform: uppercase;
+					padding: 0;
+					margin: 0;
+					&:after{
+						content: '';
+					    display: block;
+					    width: 40px;
+					    height: 2px;
+					    margin: .5em auto 0;
+					    background-color: $gray-light;
+					}
+				}
+			}
+			.items{
+				@include make-row();
+				.item{
+					@include make-xs-column(12);
+					@include make-sm-column(4);
+					@include make-md-column(4);
+					@include make-lg-column(4);
+					text-align: center;
+				}
+			}
+		}
+		&.what-we-are{
+			.items{
+				.item{
+					.item-caption{
+						h3{
+							@include font-family(opensans, condensedbold);
+							@include font-size(16);
+							a{
+								color: $gray;
+								&:hover{
+									color: $gray-dark;
+								}
+							}
+						}
+						p{
+							@include font-size(13);	
+						}
+					}
+				}
+			}
+		}
+		&.sections{
+			background-color: $yellow;
+			.items{
+				.item{
+					@include make-xs-column(6);
+					@include make-sm-column(4);
+					@include make-md-column(4);
+					@include make-lg-column(4);
+					margin-bottom: 30px;
+					.item-container{
+						position: relative;
+						background-color: $gray;
+						img{
+							@include img-responsive();
+						}
+						.item-caption{
+							position: absolute;
+							bottom: 0;
+							left: 0;
+							right: 0;
+							h3{
+								@include font-family(reis);
+								@include font-size(72);
+								text-transform: uppercase;
+								a{
+									color: $gray-lighter;
+									@include opacity(.85);
+								}
+							}
+						}
+					}
+					&:hover{
+						.item-container{
+							position: relative;
+							img{
+								@include opacity(.15);
+							}
+							.item-caption{
+								h3{
+									/*@include font-family(opensans, condensedlight);*/
+									a{
+										color: $white;
+										@include opacity(1);
+										/*@include font-size(60);*/
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&.social{
+			@include stellar-bg(auto);
+			background-color: $green-sky;
+			background-image: url('../images/social__bg.jpg');
+			background-size: cover;
+			.section-container{
+				.page-header{
+					h2{
+						color: $white;
+						&:after{
+						    background-color: $white;
+						}
+					}
+				}
+			}
+			.scroll{
+				.scroll-to{
+					color: $white;
+				}
+			}
+		}
+		&.instituciones{
+			background-color: $gray-lighter-2;
+			.section-container{
+				.page-header{
+					h2{
+						color: $gray-dark;
+						&:after{
+						    background-color: $gray;
+						}
+					}
+				}
+			}
+			.scroll{
+				.scroll-to{
+					color: $gray-dark;
+				}
+			}
+		}
+	}
+} 
