@@ -44,9 +44,7 @@
         $('.owl-carousel').owlCarousel({
             loop:true,
             margin:15,
-            nav:true,
-            autoplay: true, 
-            autoplayTimeout: 10000,
+            autoplay: true,
             autoplayHoverPause: true,
             dots: false,
             nav: false,
