@@ -1,10 +1,48 @@
 .content-info{
 	@extend .section;
+	padding-bottom: 0 !important;
 	background-color: $gray;
+	color: $gray-lighter;
+	@include font-size(11);
+	a{
+		color: $white;
+		&:hover{
+			color: $gray-lighter-2;
+		}
+	}
+	.contact-info, .contact-form{
+		@include make-sm-column(6);
+	}
+	.contact-info{
+		text-align: center;
+		.social-list{
+			@extend .list-inline;
+			li{
+				a{
+					@include font-size(24) ;
+				}
+			}
+		}
+	}
+
+	.contact-form{
+		button{
+			@extend .btn;
+			@include button-variant($white, $green-accent, $green-accent);
+		}
+	}
 	.scroll{
 		text-align: center;
 		.scroll-to{
 			color: $gray-lighter-2;
 		}
+	}
+	.widget{
+		text-align: center;
+		background-color: $gray-dark;
+		color: $gray;
+		color: $white;
+		padding-top: 10px;
+		padding-bottom: 10px;
 	}
 }

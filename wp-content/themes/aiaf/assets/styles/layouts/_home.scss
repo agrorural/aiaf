@@ -8,7 +8,7 @@
 	.home-spot{
 		@include stellar-bg(650px);
 		background-color: $green-accent;
-		background-image: url('../images/home-spot__bg.jpg');
+		background-image: url('../images/home_spot__bg.jpg');
 		background-size: cover;
 		@include center-block();
 		text-align: center;
@@ -143,7 +143,7 @@
 		&.social{
 			@include stellar-bg(auto);
 			background-color: $green-sky;
-			background-image: url('../images/social__bg.jpg');
+			background-image: url('../images/social_media__bg.jpg');
 			background-size: cover;
 			.section-container{
 				.page-header{
@@ -169,6 +169,26 @@
 						color: $gray-dark;
 						&:after{
 						    background-color: $gray;
+						}
+					}
+				}
+				.owl-carousel{
+					.owl-item{
+						.item{
+							a{
+								display: block;
+								img{
+									border: 1px solid $gray-lighter;
+								}
+							}
+							&:hover{
+								a{
+									background-color: $gray-lighter;
+									img{
+										@include opacity(.75);
+									}
+								}
+							}
 						}
 					}
 				}

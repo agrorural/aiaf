@@ -43,17 +43,22 @@
         });
         $('.owl-carousel').owlCarousel({
             loop:true,
-            margin:10,
+            margin:15,
             nav:true,
+            autoplay: true, 
+            autoplayTimeout: 10000,
+            autoplayHoverPause: true,
+            dots: false,
+            nav: false,
             responsive:{
                 0:{
-                    items:1
+                    items:2
                 },
                 600:{
                     items:3
                 },
                 1000:{
-                    items:5
+                    items:4
                 }
             }
         });

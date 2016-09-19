@@ -20,10 +20,10 @@ fjs.parentNode.insertBefore(js, fjs);
 	<div class="items">
 		<div class="item panel-default">
 			<div class="item-container">
-	   			<div class="fb-page panel" data-height="330" data-href="https://www.facebook.com/agroruralfans" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
+	   			<div class="fb-page panel" data-height="370" data-href="https://www.facebook.com/agriculturafamiliarperu/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
 	   				<div class="fb-xfbml-parse-ignore">
-	   					<blockquote cite="https://www.facebook.com/agroruralfans">
-	   						<a href="https://www.facebook.com/agroruralfans">Agro Rural</a>
+	   					<blockquote cite="https://www.facebook.com/agriculturafamiliarperu/">
+	   						<a href="https://www.facebook.com/agriculturafamiliarperu/">Agricultura Familiar Perú</a>
 	   					</blockquote>
 	   				</div>
 	   			</div>
@@ -31,12 +31,12 @@ fjs.parentNode.insertBefore(js, fjs);
 		</div>
 		<div class="item panel-default">
 			<div class="item-container">
-				<a class="twitter-timeline" href="https://twitter.com/agrorural" data-widget-id="669274423590014976">Tweets por el @agrorural.</a>
+				<a class="twitter-timeline" data-lang="es" data-width="323" data-height="370" href="https://twitter.com/AgriculturaFamP">Tweets by AgriculturaFamP</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 		    </div>
 		</div>
 		<div class="item panel-default">
 			<div class="item-container">
-    			<g:page href="https://plus.google.com/114270406491035256535" layout="" width="255"></g:page>
+    			<div class="g-person" data-width="293" data-href="https://plus.google.com/117271851324058920350" data-rel="author"></div>
 		    </div>
 		</div>
 	</div>

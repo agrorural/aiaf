@@ -9,7 +9,9 @@
   "dependencies": {
     "bootstrap-sass": "3.3.6",
     "jquery.stellar": "^0.6.2",
-    "owl.carousel": "owl-carousel2#^2.1.6"
+    "owl.carousel": "owl-carousel2#^2.1.6",
+    "font-awesome": "Font-Awesome#^4.6.3",
+    "animatewithsass": "^3.2.2"
   },
   "overrides": {
     "bootstrap-sass": {
