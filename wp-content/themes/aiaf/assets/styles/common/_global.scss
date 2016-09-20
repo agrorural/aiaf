@@ -90,14 +90,14 @@
 
 /* Mozilla based browsers */
 ::-moz-selection {
-       /*background-color: $red;
-       color: $white;*/
+    background-color: $mint;
+    color: $white;
 }
 
 /* Works in Safari */
 ::selection {
-       /*background-color: $red;
-       color: $white;*/
+    background-color: $mint;
+    color: $white;
 }
 
 html{
@@ -112,7 +112,11 @@ body{
 h1, h2{
 	@include font-family(opensans,light);	
 }
-
+a{
+    &:hover{
+        text-decoration: none;
+    }
+}
 @media (min-width: $screen-md-min){
 	.container{
 		width: 970px;

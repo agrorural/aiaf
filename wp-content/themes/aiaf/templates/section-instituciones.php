@@ -2,7 +2,7 @@
 	<div class="page-header">
 		<h2>Instituciones Integrantes</h2>
 	</div>
-	<div class="owl-carousel">
+	<div id="sl__inst" class="owl-carousel">
 		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--agro-rural.jpg" alt=""></a></div>
 		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--angr.jpg" alt=""></a></div>
 		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--anpe.jpg" alt=""></a></div>

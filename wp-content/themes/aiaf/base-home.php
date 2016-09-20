@@ -28,6 +28,7 @@ use Roots\Sage\Wrapper;
         <a class="scroll-to" href="#s2"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
       </div>
     </section>
+    <section class="separator section"  data-stellar-background-ratio="0.5"></section>
     <section id="s2" class="section sections">
       <?php get_template_part('templates/section', 'sections'); ?>
       <div class="scroll">
@@ -46,7 +47,7 @@ use Roots\Sage\Wrapper;
       <a class="scroll-to" href="#bottom"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></a>
     </div>
     </section>
-
+    <section class="separator section"  data-stellar-background-ratio="0.5"></section>
     <?php
       do_action('get_footer');
       get_template_part('templates/footer');

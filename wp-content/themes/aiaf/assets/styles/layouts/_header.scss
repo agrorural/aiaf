@@ -1,0 +1,73 @@
+header{
+	&#mainNav{
+		background-color: $white;
+		@include bounceOutUp();
+		.navbar-header{
+			.navbar-brand{
+				@include img-replace(80,70);
+				background-image: url('../images/main__logo--green.png');
+				background-position: 50% 50%;
+			}
+			.navbar-toggle{
+				margin-top: 18px;
+    			margin-bottom: 18px;
+			}
+		}
+		nav{
+			ul{
+				li{
+					a{
+						@include font-family(opensans, condensedbold);
+						color: $green-aiaf;
+						text-transform: uppercase;
+						&:hover{
+							color: $green;
+						}
+					}
+				}
+			}
+			.navbar-form{
+				margin: 18px -15px;
+			}
+		}
+		@media (min-width: $screen-md-min){
+			.navbar-nav>li>a{
+			    padding-top: 25px;
+				padding-bottom: 25px;
+			}
+		}
+
+		&.hidding{
+			@include keyframes(bounceOutUp) {
+			 0% {
+			 	opacity: 0;
+			 }
+			  20% {
+			    opacity: 0;
+			  }
+				100% {
+			  	opacity: 0;
+			  }
+			}
+			@include bounceOutUp();
+		}
+
+		&.showing{
+			@include keyframes(bounceInDown) {
+			  0% {
+			    opacity: .15;
+			    }
+			  60% {
+			    opacity: .25;
+			  }
+			  80% {
+			    opacity: .5;
+			  }
+			  100% {
+			    opacity: .85;
+			  }
+			}
+			@include bounceInDown();
+		}
+	}
+}

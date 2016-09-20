@@ -17,7 +17,7 @@
     		<li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
     		<li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
     		<li><a href="#"><i class="fa fa-youtube-square"></i></a></li>
-    		<li><a href="#"><i class="fa fa-wordpress-square"></i></a></li>
+    		<li><a href="#"><i class="fa fa-wordpress"></i></a></li>
     	</ul>
     </div>
     <div class="contact-form">
@@ -44,9 +44,10 @@
 		</form>
     </div>
   </div>
-  
-	<div class="scroll">
-		<a id="bottom" class="scroll-to" href="#spot"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
-	</div>
+  	<?php if( is_home() ) {?>
+		<div class="scroll">
+			<a id="bottom" class="scroll-to" href="#spot"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+		</div>
+	<?php } ?>
 	<?php dynamic_sidebar('sidebar-footer'); ?>
 </footer>

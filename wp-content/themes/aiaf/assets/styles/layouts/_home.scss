@@ -6,12 +6,15 @@
 		}
 	}
 	.home-spot{
-		@include stellar-bg(650px);
+		@include stellar-bg(350);
 		background-color: $green-accent;
-		background-image: url('../images/home_spot__bg.jpg');
+		background-image: url('../images/home_spot_2__bg.jpg');
 		background-size: cover;
 		@include center-block();
 		text-align: center;
+		@media (min-width: $screen-md-min){
+			@include stellar-bg(650);
+		}
 		a{
 			position: absolute;
 			left: 0;
@@ -88,6 +91,14 @@
 				}
 			}
 		}
+		&.separator{
+			@include stellar-bg(50);
+			background-color: $green-accent;
+			background-image: url('../images/home_spot_2__bg.jpg');
+			background-size: cover;
+			padding-top: 25px;
+			padding-bottom: 25px;
+		}
 		&.sections{
 			background-color: $yellow;
 			.items{
@@ -110,11 +121,16 @@
 							right: 0;
 							h3{
 								@include font-family(reis);
-								@include font-size(72);
+								@include font-size(36);
 								text-transform: uppercase;
 								a{
 									color: $gray-lighter;
 									@include opacity(.85);
+								}
+							}
+							@media (min-width: $screen-md-min){
+								h3{
+									@include font-size(72);
 								}
 							}
 						}
@@ -179,13 +195,15 @@
 								display: block;
 								img{
 									border: 1px solid $gray-lighter;
+									@include opacity(.85);
 								}
 							}
 							&:hover{
 								a{
 									background-color: $gray-lighter;
 									img{
-										@include opacity(.75);
+										@include opacity(1);
+										border: 1px solid $mint;
 									}
 								}
 							}

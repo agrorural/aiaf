@@ -1,38 +1,67 @@
 .content-info{
-	@extend .section;
-	padding-bottom: 0 !important;
 	background-color: $gray;
 	color: $gray-lighter;
 	@include font-size(11);
-	a{
-		color: $white;
-		&:hover{
-			color: $gray-lighter-2;
+
+	.section-container{
+		@extend .container;
+		padding-top: 75px;
+		padding-bottom: 35px;
+		a{
+			color: $white;
+			&:hover{
+				color: $gray-lighter-2;
+			}
 		}
-	}
-	.contact-info, .contact-form{
-		@include make-sm-column(6);
-	}
-	.contact-info{
-		text-align: center;
-		.social-list{
-			@extend .list-inline;
-			li{
-				a{
-					@include font-size(24) ;
+		.contact-info, .contact-form{
+			@include make-sm-column(6);
+		}
+		.contact-info{
+			text-align: center;
+			padding: 0 60px;
+			.page-header{
+				margin-top: 0;
+				margin-bottom: 55px;
+				@include center-block();
+				text-align: center;
+				border-bottom: 1px solid transparent;
+				h2{
+					display: inline-block;
+					@include font-size(24);
+					text-transform: uppercase;
+					padding: 0;
+					margin: 0;
+					color: $gray-lighter;
+					&:after{
+						content: '';
+					    display: block;
+					    width: 40px;
+					    height: 2px;
+					    margin: .5em auto 0;
+					    background-color: $gray-lighter;
+					}
+				}
+			}
+			.social-list{
+				@extend .list-inline;
+				li{
+					a{
+						@include font-size(24) ;
+					}
 				}
 			}
 		}
-	}
 
-	.contact-form{
-		button{
-			@extend .btn;
-			@include button-variant($white, $green-accent, $green-accent);
+		.contact-form{
+			button{
+				@extend .btn;
+				@include button-variant($white, $green-accent, $green-accent);
+			}
 		}
 	}
 	.scroll{
 		text-align: center;
+		margin-bottom: 35px;
 		.scroll-to{
 			color: $gray-lighter-2;
 		}
@@ -45,4 +74,5 @@
 		padding-top: 10px;
 		padding-bottom: 10px;
 	}
+
 }

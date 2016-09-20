@@ -28,6 +28,17 @@
                 }, 1000);
             }
         });
+        $(window).scroll(function (event) {
+            var scroll = $(window).scrollTop();
+
+            console.log(scroll);
+            if (scroll > 0){
+              $('#mainNav').addClass('showing');
+              $('#mainNav').removeClass('hidding');
+            }else{
+              $('#mainNav').removeClass('showing');
+            }
+        });
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
@@ -41,12 +52,11 @@
           horizontalScrolling: false,
           verticalOffset: 350
         });
-        $('.owl-carousel').owlCarousel({
+        $('#sl__inst').owlCarousel({
             loop:true,
             margin:15,
             autoplay: true,
             autoplayHoverPause: true,
-            dots: false,
             nav: false,
             responsive:{
                 0:{
@@ -58,6 +68,18 @@
                 1000:{
                     items:4
                 }
+            }
+        });
+        $(window).scroll(function (event) {
+            var spotHeight = $('#spot').height();
+            var scroll = $(window).scrollTop();
+            console.log(spotHeight);
+            console.log(scroll);
+            if (scroll > spotHeight){
+              $('#mainNav').addClass('showing');
+              $('#mainNav').removeClass('hidding');
+            }else{
+              $('#mainNav').removeClass('showing');
             }
         });
       },
