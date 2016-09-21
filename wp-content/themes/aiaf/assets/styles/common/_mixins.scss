@@ -1,8 +1,15 @@
+@mixin background-position($position: cover){
+  -webkit-background-size: $position;
+  -moz-background-size: $position;
+  -o-background-size: $position;
+  background-size: $position;
+}
+
 @mixin stellar-bg($height: 0 ){
-  background-size: cover;
   background-attachment: fixed;
   background-position: center top;
   background-repeat: no-repeat;
+  @include background-position(cover); 
   height: ($height) + px;
   position: relative;
 }

@@ -31,3 +31,9 @@ function excerpt_more() {
   return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'sage') . '</a>';
 }
 add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
+
+function add_excerpts_to_pages() {
+     add_post_type_support( 'page', 'excerpt' );
+}
+
+add_action( 'init', __NAMESPACE__ . '\\add_excerpts_to_pages' );

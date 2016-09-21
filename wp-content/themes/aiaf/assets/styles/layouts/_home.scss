@@ -9,7 +9,6 @@
 		@include stellar-bg(350);
 		background-color: $green-accent;
 		background-image: url('../images/home_spot_2__bg.jpg');
-		background-size: cover;
 		@include center-block();
 		text-align: center;
 		@media (min-width: $screen-md-min){
@@ -19,7 +18,7 @@
 			position: absolute;
 			left: 0;
 			right: 0;
-			color: #FFF;
+			color: $white;
 			&.custom-logo-link{
 				top: 33.3%;
 			}
@@ -157,10 +156,9 @@
 			}
 		}
 		&.social{
-			@include stellar-bg(auto);
+			@include stellar-bg(750);
 			background-color: $green-sky;
 			background-image: url('../images/social_media__bg.jpg');
-			background-size: cover;
 			.section-container{
 				.page-header{
 					h2{
