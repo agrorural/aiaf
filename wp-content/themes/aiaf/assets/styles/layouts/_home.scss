@@ -73,9 +73,13 @@
 			.items{
 				.item{
 					.item-caption{
+						h3, p{
+							@include center-block();
+						}
 						h3{
 							@include font-family(opensans, condensedbold);
 							@include font-size(16);
+							width: 45%;
 							a{
 								color: $gray;
 								&:hover{
@@ -84,7 +88,8 @@
 							}
 						}
 						p{
-							@include font-size(13);	
+							@include font-size(13);
+							width: 75%;
 						}
 					}
 				}
@@ -156,9 +161,12 @@
 			}
 		}
 		&.social{
-			@include stellar-bg(750);
+			@include stellar-bg(500);
 			background-color: $green-sky;
 			background-image: url('../images/social_media__bg.jpg');
+			@media (min-width: $screen-md-min){
+				@include stellar-bg(750);
+			}
 			.section-container{
 				.page-header{
 					h2{
@@ -169,6 +177,14 @@
 					}
 				}
 			}
+			.items{
+				.item{
+					@media (max-width: $screen-xs-max){
+						margin-bottom: 20px;
+					}
+				}
+			}
+			
 			.scroll{
 				.scroll-to{
 					color: $white;

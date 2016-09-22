@@ -9,25 +9,27 @@
 		      <a href="<?php echo $post1_permalink; ?>"><img src="<?php echo $post1_image_url[0]; ?>" alt="" /></a>
 		      <div class="item-caption">
 		        <h3><a href="<?php echo $post1_permalink; ?>"><?php echo $post1->post_title; ?></a></h3>
-		        <?php echo ( $post1->post_excerpt ); ?>
+		        <?php echo '<p>' . $post1->post_excerpt . '</p>'; ?>
 		      </div>
 		    </div>
 		</div>
 		<div class="item">
 			<div class="item-container">
-		      <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/comision_iso--gray.png" alt="" /></a>
+			<?php $post2_ID = 425; $post2 = get_post( $post2_ID ); $post2_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post2_ID ), 'gfull' ); $post2_permalink = get_permalink( $post2_ID ); //var_dump($post2); ?>
+		      <a href="<?php echo $post2_permalink; ?>"><img src="<?php echo $post2_image_url[0]; ?>" alt="" /></a>
 		      <div class="item-caption">
-		        <h3><a href="#">Comisión <br />Agricultura Familiar</a></h3>
-		        <p>Lorem ipsum dolor sit amet, consectetur dolor sit amet, consectetur adipiscing elit. Integer...</p>
+		        <h3><a href="<?php echo $post2_permalink; ?>"><?php echo $post2->post_title; ?></a></h3>
+		        <?php echo '<p>' . $post2->post_excerpt . '</p>'; ?>
 		      </div>
 		    </div>
 		</div>
 		<div class="item">
 			<div class="item-container">
-		      <a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/norma_iso--gray.png" alt="" /></a>
+		      <?php $post3_ID = 792; $post3 = get_post( $post3_ID ); $post3_image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $post3_ID ), 'gfull' ); $post3_permalink = get_permalink( $post3_ID ); //var_dump($post3); ?>
+		      <a href="<?php echo $post3_permalink; ?>"><img src="<?php echo $post3_image_url[0]; ?>" alt="" /></a>
 		      <div class="item-caption">
-		        <h3><a href="#">Normatividad <br />y Bibliografía</a></h3>
-		        <p>Lorem ipsum dolor sit amet, consectetur dolor sit amet, consectetur adipiscing elit. Integer...</p>
+		        <h3><a href="<?php echo $post3_permalink; ?>"><?php echo $post3->post_title; ?></a></h3>
+		        <?php echo '<p>' . $post3->post_excerpt . '</p>'; ?>
 		      </div>
 		    </div>
 		</div>

@@ -2,34 +2,48 @@
 	<div class="page-header">
 		<h2>Instituciones Integrantes</h2>
 	</div>
+<?php
+// teh args
+$args  = array(
+	'post_type' => 'Institucion',
+	'order'		=> 'ASC',
+	'orderby' => 'title',
+    'posts_per_page'=> -1
+);
+
+// the query
+$the_query = new WP_Query( $args ); ?>
+
+<?php if ( $the_query->have_posts() ) : ?>
+
+	<!-- pagination here -->
 	<div id="sl__inst" class="owl-carousel">
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--agro-rural.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--angr.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--anpe.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--apega.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--cip.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--conveagro.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--fsp.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--iiap.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--iica.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--inia.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--jnudrp.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--mc.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--mce.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--mef.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--midis.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--minagri.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--minam.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--minedu.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--minsa.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--mintra.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--mlc.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--mrree.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--mtc.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--produce.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--redar.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--remurpe.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--senasa.jpg" alt=""></a></div>
-		<div class="item"><a href="#"><img src="<?php echo bloginfo('template_url'); ?>/dist/images/inst__bn--vivienda.jpg" alt=""></a></div>
+		<!-- the loop -->
+		<?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+			<div class="item">
+				<?php $inst_link = get_field('inst_link'); //var_dump($inst_link); ?> 
+				<a href="<?php if ( $inst_link ) { echo $inst_link; } else  { echo '#'; } ?>" title="<?php the_title(); ?>">
+					<?php if ( has_post_thumbnail() ) {
+    					the_post_thumbnail();
+					}else {
+					    echo '<img src="' . get_bloginfo( 'template_directory' ) 
+					        . '/dist/images/inst__default.jpg" />';
+					} ?>
+				</a>
+			</div>
+		<?php endwhile; ?>
+		<!-- end of the loop -->
 	</div>
+	<!-- pagination here -->
+
+	<?php wp_reset_postdata(); ?>
+
+<?php else : ?>
+	<p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+<?php endif; ?>
+
+
+	
+	
+			
 </div>

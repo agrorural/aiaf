@@ -19,7 +19,7 @@ fjs.parentNode.insertBefore(js, fjs);
 	</div>
 	<div class="items">
 		<div class="item panel-default">
-			<div class="item-container">
+			<div class="item-container hidden-xs">
 	   			<div class="fb-page panel" data-height="370" data-href="https://www.facebook.com/agriculturafamiliarperu/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
 	   				<div class="fb-xfbml-parse-ignore">
 	   					<blockquote cite="https://www.facebook.com/agriculturafamiliarperu/">
@@ -28,15 +28,25 @@ fjs.parentNode.insertBefore(js, fjs);
 	   				</div>
 	   			</div>
 		    </div>
-		</div>
-		<div class="item panel-default">
-			<div class="item-container">
-				<a class="twitter-timeline" data-lang="es" data-width="323" data-height="370" href="https://twitter.com/AgriculturaFamP">Tweets by AgriculturaFamP</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		    <div class="item-container visible-xs">
+		    	<div class="fb-page" data-href="https://www.facebook.com/agriculturafamiliarperu/" data-small-header="true" data-adapt-container-width="false" data-hide-cover="true" data-show-facepile="false"><blockquote cite="https://www.facebook.com/agriculturafamiliarperu/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/agriculturafamiliarperu/">Agricultura Familiar PERU</a></blockquote></div>
 		    </div>
 		</div>
 		<div class="item panel-default">
-			<div class="item-container">
+			<div class="item-container hidden-xs">
+				<a class="twitter-timeline" data-lang="es" data-width="323" data-height="370" href="https://twitter.com/AgriculturaFamP">Tweets by AgriculturaFamP</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		    </div>
+		    <div class="item-container visible-xs">
+		    	<a href="https://twitter.com/AgriculturaFamP" class="twitter-follow-button" data-show-count="false">Follow @AgriculturaFamP</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		    </div>
+		</div>
+		<div class="item panel-default">
+			<div class="item-container hidden-xs">
     			<div class="g-person" data-width="293" data-href="https://plus.google.com/117271851324058920350" data-rel="author"></div>
+		    </div>
+		    <div class="item-container visible-xs">
+				<!-- Inserta esta etiqueta donde quieras que aparezca widget. -->
+				<div class="g-follow" data-annotation="bubble" data-height="24" data-href="https://plus.google.com/117271851324058920350" data-rel="author"></div>
 		    </div>
 		</div>
 	</div>

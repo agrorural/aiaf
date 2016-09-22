@@ -1,9 +1,14 @@
 <?php
   // This file assumes that you have included the nav walker from https://github.com/twittem/wp-bootstrap-navwalker
   // somewhere in your theme.
+  if( is_home() ){
+    $mainNavClass = 'navbar-fixed-top navbar-home hidding';
+  }else{
+    $mainNavClass = 'navbar-static-top';
+  }
 ?>
 
-<header id="mainNav" class="banner navbar navbar-default navbar-fixed-top hidding" role="banner">
+<header id="mainNav" class="banner navbar navbar-default <?php echo $mainNavClass; ?>" role="banner">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">

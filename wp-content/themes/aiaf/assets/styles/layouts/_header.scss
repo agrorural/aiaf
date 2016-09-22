@@ -1,7 +1,9 @@
 header{
 	&#mainNav{
 		background-color: $white;
-		@include bounceOutUp();
+		&.navbar-home{
+			@include bounceOutUp();
+		}
 		.navbar-header{
 			.navbar-brand{
 				@include img-replace(80,70);
