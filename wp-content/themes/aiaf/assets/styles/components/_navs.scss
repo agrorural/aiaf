@@ -11,16 +11,30 @@
 				padding: 0;
 				text-align: center;
 				line-height: 24px;
+				@include keyframes(fadeIn) {
+					0% {opacity: .75;}
+					100% {opacity: 1;}
+				}
+				@include fadeIn();
 				span{
 					@include text-hide();
 				}
 				&:before{
 					color: $white;
 				}
+				&:hover{
+					@include keyframes(fadeOut) {
+					  0% {opacity: 1;}
+					100% {opacity: .75;}
+					}
+					@include fadeOut();
+				}
 			}
 
 			&.fb{
 				a{
+					&:hover{
+					}
 					&:before{
 						content: $fa-var-facebook-square;
 					}
@@ -55,6 +69,5 @@
 				}
 			}
 		}	
-		&.active{}
 	}
 }

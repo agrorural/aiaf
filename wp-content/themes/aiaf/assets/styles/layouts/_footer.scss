@@ -47,11 +47,6 @@
 			}
 			.social-list{
 				@extend .list-inline;
-				li{
-					a{
-						@include font-size(24) ;
-					}
-				}
 			}
 		}
 
