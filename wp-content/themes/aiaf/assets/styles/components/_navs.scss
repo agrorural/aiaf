@@ -1,0 +1,60 @@
+.menu-navegacion-social-container{
+	ul{
+		@extend .list-inline;
+		li{
+			a{
+				@include fa-icon();
+				@include font-size(24)
+				background-color: transparent;
+				width: 24px;
+				height: 24px;
+				padding: 0;
+				text-align: center;
+				line-height: 24px;
+				span{
+					@include text-hide();
+				}
+				&:before{
+					color: $white;
+				}
+			}
+
+			&.fb{
+				a{
+					&:before{
+						content: $fa-var-facebook-square;
+					}
+				}
+			}
+			&.tw{
+				a{
+					&:before{
+						content: $fa-var-twitter-square;
+					}
+				}
+			}
+			&.gp{
+				a{
+					&:before{
+						content: $fa-var-google-plus-square;
+					}
+				}
+			}
+			&.wp{
+				a{
+					&:before{
+						content: $fa-var-wordpress;
+					}
+				}
+			}
+			&.yt{
+				a{
+					&:before{
+						content: $fa-var-youtube-square;
+					}
+				}
+			}
+		}	
+		&.active{}
+	}
+}

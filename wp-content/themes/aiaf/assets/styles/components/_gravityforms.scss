@@ -1,0 +1,128 @@
+.gform_wrapper{
+	form{
+		.validation_error{
+			@extend .alert;
+			@extend .alert-danger;
+		}
+		.gform_body{			
+			.gform_fields{
+				@include make-row();
+				@extend .list-unstyled;
+				.gfield{
+					@extend .col-sm-12;
+					@extend .clearfix;
+					@extend .form-group;
+					&.gsection{
+						margin-top: 15px;
+						.gsection_title{
+							font-size: 13px;
+							padding-bottom: 7px;
+							border-bottom: 1px solid $gray-light;
+						}
+					}
+					&.gf_left_third, &.gf_middle_third, &.gf_right_third{
+						@extend .col-sm-4;
+					}
+					&.gf_left_half, &.gf_right_half{
+						@extend .col-sm-6;
+					}
+					&.gf_left_third,&.gf_left_half{
+						clear: left;
+					}
+					&.gf_right_third, &.gf_right_half{
+						clear: right;
+					}
+
+					label{
+						@extend .control-label;
+						cursor: pointer;
+					}
+					.ginput_container{
+						input[type="text"], select, textarea{
+							@extend .form-control;
+						}
+						.charleft{
+
+						}
+						&.ginput_complex{
+							@include make-row(0);
+							@media (min-width: $screen-md-min){
+								@include make-row();
+							}
+							span{
+								label{
+									@include font-size (10);
+									font-style: italic;
+									color: $gray-lighter-2;
+								}
+								&.name_first{
+									@extend .col-sm-6;
+								}
+								&.name_last{
+									@extend .col-sm-6;
+								}
+							}
+						}
+						&.ginput_container_radio, &.ginput_container_checkbox{
+							.gfield_radio, .gfield_checkbox{
+								@extend .list-unstyled;
+								li{
+									input{
+										margin-right: 3px;
+									}
+									label{
+										font-weight: normal;
+									}
+								}
+							}
+						}
+					}
+					.gfield_description{
+						display: none;
+						@include font-size (10);
+						font-style: italic;
+					}
+
+					&.gf_list_inline{
+						.ginput_container_checkbox{
+							.gfield_checkbox{
+								@extend .list-inline;
+								li{
+									label{
+										font-weight: normal;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		.gform_footer{
+			@include make-row(0);
+			border-top: 1px solid $gray;
+			margin-top: 15px;
+			padding-top: 15px;
+			.gform_button{
+				@extend .btn;
+				@include button-variant($white, $green-accent, $green-accent);				
+			}
+		}
+	}
+	&.gform_validation_error{
+		form{
+			.gform_body{
+				.gform_fields{
+					.gfield{
+						&.gfield_error{
+							@extend .has-error;
+							.validation_message{
+								display: block;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

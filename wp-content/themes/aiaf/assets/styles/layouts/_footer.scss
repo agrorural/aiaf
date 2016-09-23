@@ -19,6 +19,9 @@
 		.contact-info{
 			text-align: center;
 			padding: 0 60px;
+			hr{
+				border-top: 1px solid transparent;
+			}
 			.page-header{
 				margin-top: 0;
 				margin-bottom: 55px;
@@ -66,7 +69,7 @@
 			color: $gray-lighter-2;
 		}
 	}
-	.widget{
+	.widget-footer{
 		text-align: center;
 		background-color: $gray-dark;
 		color: $gray;
