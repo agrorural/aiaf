@@ -1,6 +1,7 @@
 header{
 	&#mainNav{
 		background-color: $white;
+		margin-bottom: 0;
 		&.navbar-home{
 			@include bounceOutUp();
 		}

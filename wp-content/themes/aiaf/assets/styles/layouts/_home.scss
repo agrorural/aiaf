@@ -161,7 +161,7 @@
 							h3{
 								@include font-family(reis);
 								@include font-size(36);
-								text-transform: uppercase;
+								@include text-on-focus();
 								a{
 									color: $gray-lighter;
 									@include opacity(.85);
@@ -173,9 +173,8 @@
 								}
 							}
 						}
-					}
-					&:hover{
-						.item-container{
+						
+						&:hover{
 							position: relative;
 							img{
 								@include keyframes(fadeOut) {

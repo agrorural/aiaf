@@ -18,7 +18,15 @@ use Roots\Sage\Wrapper;
       do_action('get_header');
       get_template_part('templates/header');
     ?>
+    
     <?php get_template_part('templates/masshead'); ?>
+
+    <div class="post-meta">
+    	<div class="container">
+    		<?php get_template_part('templates/entry', 'meta-news'); ?>
+    	</div>
+    </div>
+
     <div class="wrap container" role="document">
       <div class="content row">
         <?php if (Setup\display_sidebar()) : ?>

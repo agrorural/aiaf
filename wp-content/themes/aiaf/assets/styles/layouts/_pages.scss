@@ -1,0 +1,35 @@
+.page{
+	&.page-template-template-documents-archive{
+		.table{
+			margin-top: 30px;
+			a{
+				color: $gray-dark;
+			}
+			tbody{
+				tr{
+					th{
+						ul{
+							margin-top: 10px;
+							margin-bottom: 0;
+							@extend .list-inline;
+							@include font-size(10);
+							@include fadeOut();
+							li, li a{
+								font-weight: normal;
+								color: $green-aiaf;
+							}
+						}
+					}
+					&:hover{
+						background-color: $gray-lighter;
+						th{
+							ul{
+								@include fadeIn();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

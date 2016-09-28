@@ -56,9 +56,44 @@
   @include text-render();
 }
 
-@mixin font-size($sizeValue: 1.6, $line: $sizeValue * 1.5){
+@mixin font-size($sizeValue: 16, $line: $sizeValue * 1.5){
   font-size: ($sizeValue * 1) + px;
   line-height: ($line * 1) + px;
   font-size: ($sizeValue / 10) + rem;
   line-height: ($line / 10) + rem;
+}
+
+@mixin text-shadow(){
+  text-shadow: 1px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+@mixin focus-shadow(){
+  &:after {
+    display: block;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 2;
+    opacity: 0.30;
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,1) 100%); 
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.25)), color-stop(100%,rgba(0,0,0,1)));
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,1) 100%);
+    background: -o-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,1) 100%);
+    background: -ms-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#000000',GradientType=0 );
+  }
+}
+
+@mixin text-on-focus(){
+  color: $white;
+  @include text-shadow();
+}
+
+@mixin background-opacity($color: $white, $opacity: 0.3) {
+    background: $color; /* The Fallback */
+    background: rgba($color, $opacity);
 }

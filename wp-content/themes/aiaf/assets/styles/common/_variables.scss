@@ -3,21 +3,28 @@ $icon-font-path:        "../fonts/";
 
 // Grid settings
 $main-sm-columns:       12;
-$sidebar-sm-columns:    4;
+$sidebar-sm-columns:    3;
 
 // Colors
-$brand-primary:         #27ae60;
+
 $white:					#ffffff;
+$white-smoke:			#f1f1f1;
+$white-smoke-light:		#fafafa;
 $yellow:				#fded5c;
+$yellow-light:			lighten($yellow, 15%);
 $orange:				#FFC62E;
+$orange-light:			lighten($orange, 25%);
+$orange-lighter:		lighten($orange, 50%);
 $green:					#345F0D;
 $green-light:			#8DCF39;
 $green-aiaf: 			#82c21f;
+$green-aiaf-light:		lighten($green-aiaf, 25%);
+$green-aiaf-lighter:		lighten($green-aiaf, 50%);
 $green-accent:			#97c138;
 $green-sky:				#6adaa8;
 $gray-lighter-2: 		#dddddd;
 $mint:					#6ADAA8;
-
+$mint-light:			lighten($mint, 15%);
 // Social Colors
 $blue-fb:				#3b5998;
 $blue-fb-hover:			#4264aa;
@@ -28,3 +35,4 @@ $red:					#7C2202;
 $red-google:			#dd4b39;
 $red-google--hover:		#e15f4f;
 
+$brand-primary:         $green-aiaf;

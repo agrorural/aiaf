@@ -20,6 +20,11 @@ use Roots\Sage\Wrapper;
     ?>
     <div class="wrap container" role="document">
       <div class="content row">
+      	<?php if (Setup\display_sidebar()) : ?>
+          <aside class="sidebar">
+            <?php include Wrapper\sidebar_path(); ?>
+          </aside><!-- /.sidebar -->
+        <?php endif; ?>
         <main class="main">
           <?php include Wrapper\template_path(); ?>
           <?php 
@@ -51,9 +56,9 @@ use Roots\Sage\Wrapper;
 			<table class="table table-striped table-condensed table-bordered table-responsive">
 				<thead>
 					<tr>
-						<th>Año</th>
 						<th>Norma</th>
 						<th>Número</th>
+						<th>Año</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -65,9 +70,14 @@ use Roots\Sage\Wrapper;
 							//var_dump($doc_link['url']);
 						?>
 						<tr>
-							<th scope="row"><?php echo get_the_date('Y'); ?></th>
-							<td><a href="<?php echo $doc_link['url']; ?>" download><?php the_title(); ?></a></td>
+							<th>
+								<a href="<?php echo $doc_link['url']; ?>"><?php the_title(); ?></a>
+								<ul>
+									<li><a href="<?php echo $doc_link['url']; ?>" download>Descargar</a></li>
+								</ul>
+							</th>
 							<td><?php if ( $doc_numero ){ echo $doc_numero; } ?></td>
+							<td><?php echo get_the_date('Y'); ?></td>
 						</tr>
 					<?php endwhile; ?>
 					<!-- end of the loop -->
@@ -81,11 +91,6 @@ use Roots\Sage\Wrapper;
 			<p>No ha seleccionado ninguna clasificación de decumento.</p>
 			<?php endif; ?>
         </main><!-- /.main -->
-        <?php if (Setup\display_sidebar()) : ?>
-          <aside class="sidebar">
-            <?php include Wrapper\sidebar_path(); ?>
-          </aside><!-- /.sidebar -->
-        <?php endif; ?>
       </div><!-- /.content -->
     </div><!-- /.wrap -->
     <?php
