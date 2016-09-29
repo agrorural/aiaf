@@ -18,19 +18,7 @@ use Roots\Sage\Wrapper;
       do_action('get_header');
       get_template_part('templates/header');
     ?>
-    
     <?php get_template_part('templates/masshead'); ?>
-
-    <div class="post-meta">
-    	<div class="container">
-    		<?php if ( in_category('Blog') ) {
-    			get_template_part('templates/entry', 'meta-blog'); 
-    		}else{
-				get_template_part('templates/entry', 'meta-news'); 
-    		}?>
-    	</div>
-    </div>
-
     <div class="wrap container" role="document">
       <div class="content row">
         <?php if (Setup\display_sidebar()) : ?>
@@ -39,7 +27,7 @@ use Roots\Sage\Wrapper;
           </aside><!-- /.sidebar -->
         <?php endif; ?>
         <main class="main">
-          <?php include Wrapper\template_path(); ?>
+          <?php get_template_part('templates/section', 'institutions'); ?>
         </main><!-- /.main -->
       </div><!-- /.content -->
     </div><!-- /.wrap -->

@@ -3,7 +3,11 @@
 <div class="page-header">
 	<div class="section-title">
 		<div class="section-title-container">
+		<?php if( in_category('Blog') ) { ?>
+			<a href="<?php echo bloginfo('url') ?>/blog">Blog</a>
+		<?php }else{ ?>
 			<a href="<?php echo bloginfo('url') ?>/noticias">Noticias</a>
+		<?php } ?>
 		</div>
 	</div>
   	<div class="post-title">

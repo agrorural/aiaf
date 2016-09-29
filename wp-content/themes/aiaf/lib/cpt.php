@@ -129,5 +129,35 @@ function create_my_taxonomies() {
 		)
 	);
 
+	$labels_institucion_tipo = array(
+		'name'              => _x( 'Tipos', 'taxonomy general name' ),
+		'singular_name'     => _x( 'Tipo', 'taxonomy singular name' ),
+		'search_items'      => __( 'Buscar Tipos' ),
+		'all_items'         => __( 'Todos los Tipos' ),
+		'parent_item'       => __( 'Tipo Padre' ),
+		'parent_item_colon' => __( 'Tipo Padre:' ),
+		'edit_item'         => __( 'Editar Tipo' ),
+		'update_item'       => __( 'Actualizar Tipo' ),
+		'add_new_item'      => __( 'Agregar Nuevo Tipo' ),
+		'new_item_name'     => __( 'Nombre de Nuevo Tipo' ),
+		'menu_name'         => __( 'Tipos' )
+	);
+
+	$args_institucion_tipo = array(
+		'public' 			=> true,
+		'hierarchical'      => true,
+		'labels'            => $labels_institucion_tipo,
+		'show_ui'           => true,
+		'show_admin_column' => true,
+		'query_var'         => true,
+		'capabilities'		=> array(
+			'manage_terms' => 'manage_tipo',
+			'edit_terms' => 'edit_tipo',
+			'delete_terms' => 'delete_tipo',
+			'assign_terms' => 'assign_tipo'
+		)
+	);
+
 	register_taxonomy( 'clasificacion', 'documento', $args_documento_clasificacion );
+	register_taxonomy( 'tipo', 'institucion', $args_institucion_tipo );
 }

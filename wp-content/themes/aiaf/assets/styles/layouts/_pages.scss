@@ -32,4 +32,40 @@
 			}
 		}
 	}
+	&.page-template-template-institutions{
+
+			
+
+				.institutions-type{
+					@include make-row();
+					.institutions-type-title{
+						@include make-sm-column(12);
+					}
+					.institutions-type-container{
+			
+						article{
+							@include make-sm-column(6);
+							header{
+								.entry-title{
+									@include font-family(opensans, condensedbold);
+									@include font-size(24);
+								}
+							}
+							.entry-content{
+								address{
+									strong{
+										@include font-family(opensans, condensedlight);
+									}
+									small{}
+									abbr, span{
+										@extend .small;
+									}
+								}
+							}
+						}
+					}
+				}
+
+	
+	}
 }
