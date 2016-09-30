@@ -71,3 +71,42 @@
 		}	
 	}
 }
+
+#institutionsNav{
+	background-color: transparent;
+	border-color: transparent;
+	.container-fluid{
+		@include background-opacity($green-aiaf, .95);
+		.navbar-header{
+			a{
+				color: $white;
+				&:hover{
+					color: $yellow;
+				}
+			}
+		}
+		.navbar-scrollspy{
+			ul{
+				li{
+					a{
+						color: $white;
+						&:hover{
+							color: $yellow;
+						}
+					}
+					&.active{
+						a{
+							@include background-opacity($green, .25);
+							color: $yellow;
+						}
+					}
+				}
+			}
+		}
+	}
+	&.navbar-fixed-top{
+		.container-fluid{
+			@include background-opacity($green-aiaf, .85);
+		}
+	}
+}

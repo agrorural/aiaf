@@ -27,6 +27,12 @@ header{
 							color: $green;
 						}
 					}
+					&.active{
+						a{
+							background-color: $green-aiaf-light;
+							color: $white;
+						}
+					}
 				}
 			}
 			.navbar-form{

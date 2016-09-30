@@ -37,3 +37,9 @@ function add_excerpts_to_pages() {
 }
 
 add_action( 'init', __NAMESPACE__ . '\\add_excerpts_to_pages' );
+
+function aiaf_theme_setup() {
+    add_image_size( 'news-thumb', 300, 285, true ); // (cropped)
+}
+
+add_action( 'after_setup_theme', __NAMESPACE__ . '\\aiaf_theme_setup' );

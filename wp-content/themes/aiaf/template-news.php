@@ -4,7 +4,6 @@
  */
 ?>
 <?php query_posts('post_type=post&post_status=publish&posts_per_page=10&category__not_in=21&paged='. get_query_var('paged')); ?>
-<?php get_template_part('templates/page', 'header'); ?>
 
 <?php if (!have_posts()) : ?>
   <div class="alert alert-warning">

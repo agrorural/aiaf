@@ -4,7 +4,6 @@
  */
 ?>
 <?php query_posts('post_type=post&post_status=publish&posts_per_page=10&category__in=21&paged='. get_query_var('paged')); ?>
-<?php get_template_part('templates/page', 'header'); ?>
 
 <?php if (!have_posts()) : ?>
   <div class="alert alert-warning">
@@ -14,7 +13,7 @@
 <?php endif; ?>
 
 <?php while (have_posts()) : the_post(); ?>
-  <?php get_template_part('templates/content', get_post_type() != 'post' ? get_post_type() : get_post_format()); ?>
+  <?php get_template_part('templates/content', 'blog'); ?>
 <?php endwhile; ?>
 
 <?php the_posts_navigation(); ?>

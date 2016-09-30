@@ -33,9 +33,13 @@
 		}
 	}
 	&.page-template-template-institutions{
+		.institutions{
+			position: relative;
+			background-color: $white;
 
-			
-
+			.institutions-container{
+				padding-left: 15px;
+				padding-right: 15px;
 				.institutions-type{
 					@include make-row();
 					.institutions-type-title{
@@ -65,7 +69,68 @@
 						}
 					}
 				}
+			}
+		}
+	}
+	&.page-template-template-blog{
+		.main{
+			article{
+				.post-author{
+					@include background-opacity($gray-dark, .5);
+					.vcard{
+						padding: 10px;
+						margin-bottom: 0;
+						img{
+							@include border-radius(30px);
+							border: 1px solid $gray-lighter;
+							margin-right: 5px;
+						}
+						a{
+							color: $gray-lighter;
+							&:hover{
+								color: $white;
+							}
+						}
+					}
+				}
+				.post-focus{
+					@include background-opacity($gray-dark, .15);
+					padding: 80px 30px 30px;
 
-	
+					h2{
+						@include font-family(opensans, bold);
+						@include font-size(40, 47);
+						margin: 0 auto;
+						a{
+							@include text-on-focus();
+							&:hover{
+								color: $green-aiaf;
+							}
+						}
+					}
+				}
+				.entry-summary{
+					background-color: $white;
+					padding: 30px;
+					p{
+						@include font-size(16);
+					}
+				}
+				.post-meta{
+					@include make-row(0);
+					color: $gray-light;
+					@extend .small;
+					padding: 15px 30px;
+					border-top: 1px solid #e9eff3;
+					background: $white;
+					.post-date{
+						@extend .pull-left;
+					}
+					.post-comments{
+						@extend .pull-right;
+					}
+				}
+			}
+		}
 	}
 }

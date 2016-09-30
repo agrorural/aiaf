@@ -18,7 +18,7 @@ $args = array(
 $the_query = new WP_Query( $args ); ?>
 
 <?php if ( $the_query->have_posts() ) : ?>
-	<div class="institutions-type">
+	<div id="dependencias" class="institutions-type">
 		<div class="institutions-type-title">
 			<h3>Directorio Dependencias Públicas</h3>
 		</div>

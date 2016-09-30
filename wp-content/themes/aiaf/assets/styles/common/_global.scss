@@ -90,13 +90,13 @@
 
 /* Mozilla based browsers */
 ::-moz-selection {
-    background-color: $mint;
+    background-color: $orange;
     color: $white;
 }
 
 /* Works in Safari */
 ::selection {
-    background-color: $mint;
+    background-color: $orange;
     color: $white;
 }
 
@@ -144,6 +144,92 @@ a{
 .wrap{
     .content{
         padding-bottom: 30px;
+        .main{
+            article{
+                @include make-row(0);
+                min-height: 150px;
+                margin-bottom: 40px;
+                .entry-container{
+                    background: $white;
+                    @include shadow-box();
+                    overflow: hidden;
+                    header{
+                        @include make-row(0);
+                        img{
+                            @extend .pull-left;
+                        }
+                    }
+                }
+
+                &.news{
+                    .entry-left{
+                        width: 100%;
+                        height: 185px;
+                        display: block;
+                        .entry-left-container{
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .entry-body{
+                        padding-left: 30px !important;
+                        padding-right: 30px !important;
+                        h2{
+                            @include font-family(opensans, bold)
+                            @include font-size(18, 23);
+                            padding-bottom: 15px;
+                            a{
+                                color: $gray-dark;
+                                &:hover{
+                                    color: $green-aiaf;
+                                }
+                            }
+                        }
+                    }
+
+                    .post-meta{
+                        position: relative;
+                        width: 100%;
+                        padding-top: 12px;
+                        padding-bottom: 12px;
+                        border-top: 1px solid $gray-lighter;
+                        @extend .clearfix;
+                        .post-date{
+                            float: left;
+                        }
+                        .post-comments{
+                            float: right;
+                        }
+                    }
+
+                    @media (min-width: $screen-sm-min){
+                        .entry-left{
+                            height: 300px;
+                        }
+                        .entry-left, .entry-body{
+                            @include make-sm-column(6, 0);
+
+                        }
+                        .entry-body{
+                            height: 300px;
+                            h2{
+                                @include font-size(24, 30);
+                            }
+                        }
+
+                        .post-meta{
+                            position: absolute;
+                            width: 100%;
+                            bottom: 0;
+                            right: 0;
+                            left: 0;
+                            padding-left: 30px;
+                            padding-right: 30px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

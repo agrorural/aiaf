@@ -28,17 +28,6 @@
                 }, 1000);
             }
         });
-        $(window).scroll(function (event) {
-            var scroll = $(window).scrollTop();
-
-            console.log(scroll);
-            if (scroll > 0){
-              $('#mainNav').addClass('showing');
-              $('#mainNav').removeClass('hidding');
-            }else{
-              $('#mainNav').removeClass('showing');
-            }
-        });
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
@@ -92,9 +81,27 @@
       }
     },
     // About us page, note the change from about-us to about_us.
-    'about_us': {
+    'comision_de_la_agricultura_familiar': {
       init: function() {
         // JavaScript to be fired on the about us page
+        $(window).scroll(function (event) {
+            var mainNavHeight = $('#mainNav').height();
+            var massheadHeight = $('.masshead').height();
+            var resultHeight = mainNavHeight + massheadHeight;
+
+            var scroll = $(window).scrollTop();
+
+            console.log(resultHeight);
+            console.log(scroll);
+
+            if (scroll > resultHeight){
+              $('#institutionsNav').addClass('container navbar-fixed-top');
+              $('#institutionsNav').removeClass('navbar-static-top');
+            }else{
+              $('#institutionsNav').addClass('navbar-static-top');
+              $('#institutionsNav').removeClass('container navbar-fixed-top');
+            }
+        });
       }
     }
   };
