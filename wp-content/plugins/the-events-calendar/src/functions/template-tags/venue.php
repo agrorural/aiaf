@@ -98,10 +98,12 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 		$ven_id = tribe_get_venue_id( $postId );
 		$url = esc_url_raw( get_permalink( $ven_id ) );
 
-		if ( $full_link ) {
-			$name = tribe_get_venue( $ven_id );
+		if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
+			$link = tribe_get_venue( $ven_id );
+		} elseif ( $full_link ) {
+			$name       = tribe_get_venue( $ven_id );
 			$attr_title = the_title_attribute( array( 'post' => $ven_id, 'echo' => false ) );
-			$link = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="'.$attr_title.'">' . $name . '</a>' : false;
+			$link       = ! empty( $url ) && ! empty( $name ) ? '<a href="' . esc_url( $url ) . '" title="' . $attr_title . '">' . $name . '</a>' : false;
 		} else {
 			$link = $url;
 		}
@@ -135,7 +137,7 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	/**
 	 * Full Address
 	 *
-	 * Returns the full address for the venue. Function uses the views/full-address.php template which you can override in your theme (including google microformats etc).
+	 * Returns the full address for the venue. Function uses the views/modules/address.php template which you can override in your theme.
 	 *
 	 * @param int  $postId Can supply either event id or venue id, if none specified, current post is used
 	 * @param bool $includeVenueName
@@ -144,9 +146,9 @@ if ( class_exists( 'Tribe__Events__Main' ) ) {
 	 */
 	function tribe_get_full_address( $postId = null, $includeVenueName = false ) {
 		$postId    = tribe_get_venue_id( $postId );
-		$tribe_ecp = Tribe__Events__Main::instance();
+		$tec = Tribe__Events__Main::instance();
 
-		return apply_filters( 'tribe_get_full_address', $tribe_ecp->fullAddress( $postId, $includeVenueName ) );
+		return apply_filters( 'tribe_get_full_address', $tec->fullAddress( $postId, $includeVenueName ) );
 	}
 
 	/**

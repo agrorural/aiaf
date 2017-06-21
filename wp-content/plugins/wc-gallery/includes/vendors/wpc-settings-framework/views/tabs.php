@@ -3,6 +3,13 @@ $active_tab = null;
 $cookie_name = $this->plugin_prefix . 'wpcsf_active_tab';
 
 // restore last tab visited
+if ( isset( $_GET['wpcsf_active_tab'] ) && ! empty( $_GET['wpcsf_active_tab'] ) ) {
+	$tab_check = $_GET['wpcsf_active_tab'];
+	if ( isset( $this->tabs[ $menu_slug ][ $tab_check ] ) ) {
+		$active_tab = $tab_check;
+	}
+}
+
 if ( empty( $active_tab ) && isset( $_COOKIE[ $cookie_name ] ) && ! empty( $_COOKIE[ $cookie_name ] ) ) {
 	$last_tab = $_COOKIE[ $cookie_name ];
 	if ( isset( $this->tabs[ $menu_slug ][ $last_tab ] ) ) {
@@ -79,7 +86,7 @@ if ( empty( $active_tab ) && isset( $_COOKIE[ $cookie_name ] ) && ! empty( $_COO
 
 		<p class="submit">
 			<?php submit_button( null, 'primary', 'submit', false ); ?>
-			<?php //submit_button( 'Restore Default Settings', 'delete', 'submit', false ); ?>
+			<?php submit_button( 'Restore Default Settings', 'delete', 'wpcsf_reset_options_' . $menu_slug, false, array( 'onclick' => 'return confirm("Are you sure you want to reset your settings?");' ) ); ?>
 		</p>
 	</form>
 </div>

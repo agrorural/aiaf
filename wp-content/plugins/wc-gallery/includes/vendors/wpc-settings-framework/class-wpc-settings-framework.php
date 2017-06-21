@@ -17,7 +17,7 @@
  */
 class WC_Gallery_Settings_Framework {
 
-	protected $version = '1.0.2';
+	protected $version = '1.0.7';
 
 	/**
 	 * Instance of this class.
@@ -67,17 +67,18 @@ class WC_Gallery_Settings_Framework {
 
 		$this->set_slug_prefix();
 
-		add_action( 'admin_init', array( $this, 'set_plugin_info' ) );
+		add_action( 'admin_init', array( &$this, 'set_plugin_info' ) );
+		add_action( 'admin_init', array( &$this, 'reset_options' ) );
 
-		add_action( 'init', array( $this, 'set_options' ), 100 );
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
-		add_action( 'admin_init', array( $this, 'options_activation' ), 200 );
-		// add_action( 'admin_init', array( $this, 'update_options' ), 200 ); // debug
-		add_action( 'after_switch_theme', array( $this, 'update_options' ), 200 );
-		add_action( 'admin_menu', array( $this, 'options_admin_menu' ) );
+		add_action( 'init', array( &$this, 'set_options' ), 100 );
+		add_action( 'admin_init', array( &$this, 'register_settings' ) );
+		add_action( 'admin_init', array( &$this, 'options_activation' ), 200 );
+		// add_action( 'admin_init', array( &$this, 'update_options' ), 200 ); // debug
+		add_action( 'after_switch_theme', array( &$this, 'update_options' ), 200 );
+		add_action( 'admin_menu', array( &$this, 'options_admin_menu' ) );
 
 		// Load admin style sheet and JavaScript.
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_admin_scripts' ) );
 	}
 
 	/**
@@ -95,6 +96,17 @@ class WC_Gallery_Settings_Framework {
 		}
 
 		return self::$instance;
+	}
+
+	public function reset_options() {
+		if ( isset( $_POST['wpcsf_reset_options_' . $this->plugin_slug ] ) ) {
+			$this->reset_all_options();
+			add_settings_error( $menu_slug, 'settings_updated', __('Settings reset.'), 'updated' );
+			set_transient('settings_errors', get_settings_errors(), 30);
+			$goback = add_query_arg( 'settings-updated', 'true',  wp_get_referer() );
+			wp_redirect( $goback );
+			exit;
+		}
 	}
 
 	public function set_slug_prefix() {
@@ -172,6 +184,57 @@ class WC_Gallery_Settings_Framework {
 								$oo['option_name'] = $this->plugin_prefix . $oo['option_name'];
 								$this->update_option( $oo['option_name'], $oo['default'] );
 							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public function reset_all_options() {
+		$this->set_options();
+
+		if ( true ) {
+			foreach ( $this->options as $menu_slug => $o ) {
+				if ( isset( $o['option_group'] ) ) {
+					if ( isset( $o['tabs'] ) &&
+					is_array( $o['tabs'] ) ) {
+						foreach( $o['tabs'] as $key => $oo ) {
+							if ( isset( $oo['sections'] ) &&
+							is_array( $oo['sections'] ) ) {
+								$this->loop_and_reset_all_options( $oo['sections'] );
+							}
+						}
+					}
+					else if ( isset( $o['sections'] ) &&
+					is_array( $o['sections'] ) ) {
+						$this->loop_and_reset_all_options( $o['sections'] );
+					}
+				}
+			}
+		}
+
+	}
+
+	public function loop_and_reset_all_options( $sections ) {
+		foreach( $sections as $o ) {
+			if ( isset( $o['id'] ) &&
+			isset( $o['title'] ) &&
+			isset( $o['options'] ) &&
+			is_array( $o['options'] ) ) {
+				foreach( $o['options'] as $oo ) {
+					if ( isset( $oo['group'] ) && is_array( $oo['group'] ) ) {
+						foreach ( $oo['group'] as $key => $ooo ) {
+							if ( isset( $ooo['option_name'] ) ) {
+								$ooo['option_name'] = $this->plugin_prefix . $ooo['option_name'];
+								$this->update_option( $ooo['option_name'], $ooo['default'] );
+							}
+						}
+					}
+					else {
+						if ( isset( $oo['option_name'] ) ) {
+							$oo['option_name'] = $this->plugin_prefix . $oo['option_name'];
+							$this->update_option( $oo['option_name'], $oo['default'] );
 						}
 					}
 				}
@@ -316,7 +379,7 @@ class WC_Gallery_Settings_Framework {
 							// add_settings_field( $id, $title, $callback, $page, $section, $args );
 							// @page should match @menu_slug from add_theme_page
 							// @section the section you added with add_settings_section
-							add_settings_field($oo['id'], $oo['title'], array( $this, 'display_group' ), $menu_slug, $o['id'], $oo );
+							add_settings_field($oo['id'], $oo['title'], array( &$this, 'display_group' ), $menu_slug, $o['id'], $oo );
 						}
 					}
 					else {
@@ -334,7 +397,7 @@ class WC_Gallery_Settings_Framework {
 							// add_settings_field( $id, $title, $callback, $page, $section, $args );
 							// @page should match @menu_slug from add_theme_page
 							// @section the section you added with add_settings_section
-							add_settings_field( $oo['option_name'], '<label for="'.$oo['option_name'].'">'.$oo['title'].'</label>' , array( $this, 'display_setting' ), $menu_slug, $o['id'], $oo );
+							add_settings_field( $oo['option_name'], '<label for="'.$oo['option_name'].'">'.$oo['title'].'</label>' , array( &$this, 'display_setting' ), $menu_slug, $o['id'], $oo );
 						}
 					}
 				}
@@ -344,7 +407,7 @@ class WC_Gallery_Settings_Framework {
 
 	public function get_callback( &$o ) {
 		if ( isset( $o['callback'] ) && ! empty( $o['callback'] ) ) {
-			if ( function_exists( $o['callback'] ) ) {
+			if ( is_callable( $o['callback'] ) ) {
 				return $o['callback'];
 			}
 		}
@@ -374,7 +437,7 @@ class WC_Gallery_Settings_Framework {
 				isset( $v['capability'] ) &&
 				isset( $v['option_group'] ) ) {
 					// add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, $function );
-					$view_hook_name = add_submenu_page( $v['parent_slug'], $v['page_title'], $v['menu_title'], $v['capability'], $menu_slug, array( $this, 'display_page' ) );
+					$view_hook_name = add_submenu_page( $v['parent_slug'], $v['page_title'], $v['menu_title'], $v['capability'], $menu_slug, array( &$this, 'display_page' ) );
 					$this->views[ $view_hook_name ] = $menu_slug;
 				}
 				else if ( isset( $v['parent_slug'] ) ) {
@@ -527,6 +590,7 @@ class WC_Gallery_Settings_Framework {
 			$args['display'] = 'default';
 
 		extract( $args );
+
 		$val = get_option( $option_name, $default );
 
 		switch ( $args['type'] ) {

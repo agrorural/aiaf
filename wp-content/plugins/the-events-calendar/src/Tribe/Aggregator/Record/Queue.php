@@ -13,11 +13,9 @@ class Tribe__Events__Aggregator__Record__Queue {
 	protected $importer;
 
 	/**
-	 * Holds a Log of what has been done on This Queue
-	 *
 	 * @var Tribe__Events__Aggregator__Record__Activity
 	 */
-	public $activity = null;
+	protected $activity;
 
 	/**
 	 * Holds the Items that will be processed
@@ -40,26 +38,55 @@ class Tribe__Events__Aggregator__Record__Queue {
 	 */
 	public $total = 0;
 
-	public function __construct( $record, $items = array() ) {
+	/**
+	 * @var Tribe__Events__Aggregator__Record__Queue_Cleaner
+	 */
+	protected $cleaner;
+
+	/**
+	 * Whether any real processing should happen for the queue or not.
+	 *
+	 * @var bool
+	 */
+	protected $null_process = false;
+
+	/**
+	 * Tribe__Events__Aggregator__Record__Queue constructor.
+	 *
+	 * @param int|Tribe__Events__Aggregator__Record__Abstract       $record
+	 * @param array                                                 $items
+	 * @param Tribe__Events__Aggregator__Record__Queue_Cleaner|null $cleaner
+	 */
+	public function __construct( $record, $items = array(), Tribe__Events__Aggregator__Record__Queue_Cleaner $cleaner = null ) {
 		if ( is_numeric( $record ) ) {
 			$record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record );
 		}
 
-		if ( ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
-			return false;
+		if ( ! is_object( $record ) || ! in_array( 'Tribe__Events__Aggregator__Record__Abstract', class_parents( $record ) ) ) {
+			$this->null_process = true;
+
+			return;
 		}
 
-		// Prevent it going any further
-		if ( is_wp_error( $record ) ) {
-			return $record;
+		if ( is_wp_error( $items ) ) {
+			$this->null_process = true;
+
+			return;
+		}
+
+		$this->cleaner = $cleaner ? $cleaner : new Tribe__Events__Aggregator__Record__Queue_Cleaner();
+
+		$this->cleaner->remove_duplicate_pending_records_for( $record );
+
+		$failed = $this->cleaner->maybe_fail_stalled_record( $record );
+
+		if ( $failed ) {
+			$this->null_process = true;
+
+			return;
 		}
 
 		$this->record = $record;
-
-		// Prevent it going any further
-		if ( is_wp_error( $items ) ) {
-			return $this;
-		}
 
 		$this->activity();
 
@@ -74,6 +101,15 @@ class Tribe__Events__Aggregator__Record__Queue {
 			$this->save();
 		} else {
 			$this->load_queue();
+		}
+		$this->cleaner = $cleaner;
+	}
+
+	public function __get( $key ) {
+		switch ( $key ) {
+			case 'activity':
+				return $this->activity();
+				break;
 		}
 	}
 
@@ -92,6 +128,11 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	public function load_queue() {
+		if ( empty( $this->record->meta[ self::$queue_key ] ) ) {
+			$this->is_fetching = false;
+			$this->items = array();
+		}
+
 		$this->items = $this->record->meta[ self::$queue_key ];
 
 		if ( 'fetch' === $this->items ) {
@@ -100,7 +141,7 @@ class Tribe__Events__Aggregator__Record__Queue {
 	}
 
 	public function activity() {
-		if ( ! $this->activity ) {
+		if ( empty( $this->activity ) ) {
 			if (
 				empty( $this->record->meta[ self::$activity_key ] )
 				|| ! $this->record->meta[ self::$activity_key ] instanceof Tribe__Events__Aggregator__Record__Activity
@@ -158,6 +199,12 @@ class Tribe__Events__Aggregator__Record__Queue {
 	public function save() {
 		$this->record->update_meta( self::$activity_key, $this->activity );
 
+		/** @var Tribe__Meta__Chunker $chunker */
+		$chunker = tribe( 'chunker' );
+		// this data has the potential to be very big, so we register it for possible chunking in the db
+		$key = Tribe__Events__Aggregator__Record__Abstract::$meta_key_prefix . self::$queue_key;
+		$chunker->register_chunking_for( $this->record->post->ID, $key );
+
 		if ( empty( $this->items ) ) {
 			$this->record->delete_meta( self::$queue_key );
 		} else {
@@ -167,7 +214,8 @@ class Tribe__Events__Aggregator__Record__Queue {
 		// If we have a parent also update that
 		if ( ! empty( $this->record->post->post_parent ) ) {
 			$parent = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $this->record->post->post_parent );
-			if ( isset( $parent->meta[ self::$activity_key ] ) ) {
+
+			if ( ! tribe_is_error( $parent ) && isset( $parent->meta[ self::$activity_key ] ) ) {
 				$activity = $parent->meta[ self::$activity_key ];
 
 				if ( $activity instanceof Tribe__Events__Aggregator__Record__Activity ) {
@@ -194,9 +242,13 @@ class Tribe__Events__Aggregator__Record__Queue {
 	/**
 	 * Processes a batch for the queue
 	 *
-	 * @return self
+	 * @return self|Tribe__Events__Aggregator__Record__Activity
 	 */
 	public function process( $batch_size = null ) {
+		if ( $this->null_process ) {
+			return $this;
+		}
+
 		if ( $this->is_fetching() ) {
 			$data = $this->record->prep_import_data();
 
@@ -298,3 +350,4 @@ class Tribe__Events__Aggregator__Record__Queue {
 		return $item_type;
 	}
 }
+
