@@ -244,6 +244,21 @@ if ( ! function_exists( 'tribe_normalize_terms_list' ) ) {
 
 		return $normalized;
 	}
+
+	if ( ! function_exists( 'tribe_upload_image' ) ) {
+		/** * @param string|int $image The path to an image file, an image URL or an attachment post ID.
+		 *
+		 * @return int|bool The attachment post ID if the uploading and attachment is successful or the ID refers to an attachment;
+		 *                  `false` otherwise.
+		 *
+		 * @see Tribe__Image__Uploader::upload_and_get_attachment_id()
+		 */
+		function tribe_upload_image( $image ) {
+			$uploader = new Tribe__Image__Uploader( $image );
+
+			return $uploader->upload_and_get_attachment_id();
+		}
+	}
 }
 
 if ( ! function_exists( 'tribe_is_error' ) ) {
@@ -260,5 +275,129 @@ if ( ! function_exists( 'tribe_is_error' ) ) {
 	 */
 	function tribe_is_error( $thing ) {
 		return ( $thing instanceof Tribe__Error || is_wp_error( $thing ) );
+	}
+}
+
+if ( ! function_exists( 'tribe_retrieve_object_by_hook' ) ) {
+	/**
+	 * Attempts to find and return an object of the specified type that is associated
+	 * with a specific hook.
+	 *
+	 * This is useful when third party code registers callbacks that belong to anonymous
+	 * objects and it isn't possible to obtain the reference any other way.
+	 *
+	 * @since 4.5.8
+	 *
+	 * @param string   $class_name
+	 * @param string   $hook
+	 * @param int      $priority
+	 *
+	 * @return object|false
+	 */
+	function tribe_retrieve_object_by_hook( $class_name, $hook, $priority ) {
+		global $wp_filter;
+
+		// No callbacks registered for this hook and priority?
+		if (
+			! isset( $wp_filter[ $hook ] )
+			|| ! isset( $wp_filter[ $hook ][ $priority ] )
+		) {
+			return false;
+		}
+
+		// Otherwise iterate through the registered callbacks at the specified priority
+		foreach ( $wp_filter[ $hook ]->callbacks[ $priority ] as $callback ) {
+			// Skip if this callback isn't an object method
+			if (
+				! is_array( $callback['function'] )
+				|| ! is_object( $callback['function'][0] )
+			) {
+				continue;
+			}
+
+			// If this isn't the callback we're looking for let's skip ahead
+			if ( $class_name !== get_class( $callback['function'][0] ) ) {
+				continue;
+			}
+
+			return $callback['function'][0];
+		}
+
+		return false;
+	}
+}
+
+if ( ! function_exists( 'tribe_is_wpml_active' ) ) {
+	/**
+	 * A unified way of checking if WPML is activated.
+	 *
+	 * @since 4.6.2
+	 *
+	 * @return boolean
+	 */
+	function tribe_is_wpml_active() {
+		return ( class_exists( 'SitePress' ) && defined( 'ICL_PLUGIN_PATH' ) );
+	}
+}
+
+if ( ! function_exists( 'tribe_post_exists' ) ) {
+	/**
+	 * Checks if a post, optionally of a specific type, exists in the database.
+	 *
+	 * This is a low-level database check that will ignore caches and will
+	 * check if there is an entry, in the posts table, for the post.
+	 *
+	 * @since 4.7.7
+	 *
+	 * @param string|int $post_id_or_name Either a post ID or a post name.
+	 * @param null       $post_type       An optional post type, or a list of post types, the
+	 *                                    post should have; a logic OR will be used.
+	 *
+	 * @return bool|int The matching post ID if found, `false` otherwise
+	 */
+	function tribe_post_exists( $post_id_or_name, $post_type = null ) {
+		if ( $post_id_or_name instanceof WP_Post ) {
+			$post_id_or_name = $post_id_or_name->ID;
+		}
+
+		global $wpdb;
+
+		$query_template = "SELECT ID FROM {$wpdb->posts} WHERE %s";
+		$query_vars     = array();
+		$where          = '';
+
+		if ( is_numeric( $post_id_or_name ) ) {
+			$where        = 'ID = %d';
+			$query_vars[] = $post_id_or_name;
+		} elseif ( is_string( $post_id_or_name ) ) {
+			$where        = 'post_name = %s';
+			$query_vars[] = $post_id_or_name;
+		}
+
+		if (
+			is_string( $post_type )
+			|| (
+				is_array( $post_type )
+				&& count( $post_type ) === count( array_filter( $post_type, 'is_string' ) )
+			)
+		) {
+			$post_types_where_template = ' AND post_type IN (%s)';
+			$post_types                = (array) $post_type;
+
+			$post_types_interval = $wpdb->prepare(
+				implode(
+					',',
+					array_fill( 0, count( $post_types ), '%s' )
+				),
+				$post_types
+			);
+
+			$where .= sprintf( $post_types_where_template, $post_types_interval );
+		}
+
+		$prepared = $wpdb->prepare( sprintf( $query_template, $where ), $query_vars );
+		$found    = $wpdb->get_var( $prepared );
+
+		return ! empty( $found ) ? (int) $found : false;
 	}
 }

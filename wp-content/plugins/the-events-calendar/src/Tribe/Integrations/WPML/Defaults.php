@@ -93,7 +93,7 @@ class Tribe__Events__Integrations__WPML__Defaults {
 	 * @return string
 	 */
 	protected function get_config_file_path() {
-		return Tribe__Events__Main::instance()->pluginPath . DIRECTORY_SEPARATOR . 'wpml-config.xml';
+		return Tribe__Events__Main::instance()->pluginPath . 'wpml-config.xml';
 	}
 
 	/**
@@ -114,7 +114,7 @@ class Tribe__Events__Integrations__WPML__Defaults {
 	 * @return string
 	 */
 	protected function get_config_file_fail_message() {
-		$message = __( 'The Events Calenar could not write WPML default config file: please create  the file manually.', 'the-events-calendar' );
+		$message = __( 'The Events Calendar could not write WPML default config file: please create the file manually.', 'the-events-calendar' );
 
 		return $message;
 	}

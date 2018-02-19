@@ -103,26 +103,29 @@ class Tribe__Events__Aggregator__Event {
 		);
 
 		$venue_field_map = array(
-			'facebook_id' => 'VenueFacebookID',
-			'meetup_id' => 'VenueMeetupID',
-			'venue' => 'Venue',
-			'address' => 'Address',
-			'city' => 'City',
-			'country' => 'Country',
-			'state' => 'State',
-			'stateprovince' => 'Province',
-			'zip' => 'Zip',
-			'phone' => 'Phone',
-			'website' => 'URL'
+			'facebook_id'           => 'VenueFacebookID',
+			'meetup_id'             => 'VenueMeetupID',
+			'venue'                 => 'Venue',
+			'address'               => 'Address',
+			'city'                  => 'City',
+			'country'               => 'Country',
+			'state'                 => 'State',
+			'stateprovince'         => 'Province',
+			'zip'                   => 'Zip',
+			'phone'                 => 'Phone',
+			'website'               => 'URL',
+			'overwrite_coordinates' => 'OverwriteCoords',
+			'latitude'              => 'Lat',
+			'longitude'             => 'Lng',
 		);
 
 		$organizer_field_map = array(
 			'facebook_id' => 'OrganizerFacebookID',
-			'meetup_id' => 'OrganizerMeetupID',
-			'organizer' => 'Organizer',
-			'phone' => 'Phone',
-			'email' => 'Email',
-			'website' => 'Website',
+			'meetup_id'   => 'OrganizerMeetupID',
+			'organizer'   => 'Organizer',
+			'phone'       => 'Phone',
+			'email'       => 'Email',
+			'website'     => 'Website',
 		);
 
 		foreach ( $field_map as $origin_field => $target_field ) {
@@ -146,12 +149,20 @@ class Tribe__Events__Aggregator__Event {
 
 		if ( ! empty( $item->organizer ) ) {
 			$event['Organizer'] = array();
-			foreach ( $organizer_field_map as $origin_field => $target_field ) {
-				if ( ! isset( $item->organizer->$origin_field ) ) {
-					continue;
+			$organizer_entries = is_array( $item->organizer ) ? $item->organizer : array( $item->organizer );
+
+			foreach ( $organizer_entries as $organizer_entry ) {
+				$this_organizer = array();
+
+				foreach ( $organizer_field_map as $origin_field => $target_field ) {
+					if ( ! isset( $organizer_entry->$origin_field ) ) {
+						continue;
+					}
+
+					$this_organizer[ $target_field ] = $organizer_entry->$origin_field;
 				}
 
-				$event['Organizer'][ $target_field ] = $item->organizer->$origin_field;
+				$event['Organizer'][] = $this_organizer;
 			}
 		}
 
@@ -188,15 +199,22 @@ class Tribe__Events__Aggregator__Event {
 		}
 
 		$key = "_{$fields[ $origin ]['target']}";
+		$post_type = Tribe__Events__Main::POSTTYPE;
+		$interval = "('" . implode( "','", array_map( 'esc_sql', $values ) ) . "')";
 
 		$sql = "
 			SELECT
-				meta_value,
-				post_id
+				pm.meta_value,
+				pm.post_id
 			FROM
-				{$wpdb->postmeta}
+				{$wpdb->postmeta} pm
+			JOIN
+				{$wpdb->posts} p
+			ON
+				pm.post_id = p.ID
 			WHERE
-				meta_value IN ( '" . implode( "','", $values ) ."' )
+				p.post_type = '{$post_type}'
+				AND meta_value IN {$interval}
 		";
 
 		/**
@@ -221,8 +239,8 @@ class Tribe__Events__Aggregator__Event {
 	 *
 	 * @return bool|WP_Post
 	 */
-	public static function get_post_by_meta( $key = 'global_id', $value = null ) {
-		if ( is_null( $value ) ) {
+	public static function get_post_by_meta( $key, $value = null ) {
+		if ( null === $value ) {
 			return false;
 		}
 
@@ -231,11 +249,9 @@ class Tribe__Events__Aggregator__Event {
 			'global_id_lineage' => self::$global_id_lineage_key,
 		);
 
-		if ( ! isset( $keys[ $key ] ) ) {
-			return false;
+		if ( isset( $keys[ $key ] ) ) {
+			$key = $keys[ $key ];
 		}
-
-		$key = $keys[ $key ];
 
 		global $wpdb;
 
